@@ -29,36 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.stream1 = new AxWMPLib.AxWindowsMediaPlayer();
-            this.stream2 = new AxWMPLib.AxWindowsMediaPlayer();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.stream1)).BeginInit();
+            this.stream2 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.stream1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.stream2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stream1)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // stream1
-            // 
-            this.stream1.Enabled = true;
-            this.stream1.Location = new System.Drawing.Point(12, 305);
-            this.stream1.Name = "stream1";
-            this.stream1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("stream1.OcxState")));
-            this.stream1.Size = new System.Drawing.Size(655, 462);
-            this.stream1.TabIndex = 0;
-            // 
-            // stream2
-            // 
-            this.stream2.Enabled = true;
-            this.stream2.Location = new System.Drawing.Point(777, 305);
-            this.stream2.Name = "stream2";
-            this.stream2.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("stream2.OcxState")));
-            this.stream2.Size = new System.Drawing.Size(698, 462);
-            this.stream2.TabIndex = 0;
-            this.stream2.Enter += new System.EventHandler(this.stream2_Enter);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(777, 90);
+            this.button1.Location = new System.Drawing.Point(73, 204);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(698, 145);
             this.button1.TabIndex = 1;
@@ -68,7 +51,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(29, 90);
+            this.button2.Location = new System.Drawing.Point(73, 34);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(698, 145);
             this.button2.TabIndex = 1;
@@ -76,19 +59,46 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // stream2
+            // 
+            this.stream2.Enabled = true;
+            this.stream2.Location = new System.Drawing.Point(3, 298);
+            this.stream2.Name = "stream2";
+            this.stream2.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("stream2.OcxState")));
+            this.stream2.Size = new System.Drawing.Size(520, 281);
+            this.stream2.TabIndex = 0;
+            // 
+            // stream1
+            // 
+            this.stream1.Enabled = true;
+            this.stream1.Location = new System.Drawing.Point(3, 3);
+            this.stream1.Name = "stream1";
+            this.stream1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("stream1.OcxState")));
+            this.stream1.Size = new System.Drawing.Size(520, 289);
+            this.stream1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.stream1);
+            this.flowLayoutPanel1.Controls.Add(this.stream2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(59, 464);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(743, 1098);
+            this.flowLayoutPanel1.TabIndex = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2217, 1331);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(829, 1811);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.stream2);
-            this.Controls.Add(this.stream1);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.button2);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.stream1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stream2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stream1)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -99,6 +109,7 @@
         private AxWMPLib.AxWindowsMediaPlayer stream2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

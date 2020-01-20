@@ -63,9 +63,6 @@ namespace VideoPlayer.Forms
             await connection.InvokeAsync("SwitchChannelWeb");
         }
 
-        private void stream2_Enter(object sender, EventArgs e)
-        {
 
-        }
     }
 }
