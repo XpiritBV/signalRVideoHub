@@ -1,26 +1,24 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using System.Windows.Forms;
 
-namespace VideoPlayer
+namespace VideoPlayer.Forms
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
-    [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+    public partial class Form1 : Form
     {
+
         HubConnection connection;
-        public MainPage()
+        public Form1()
         {
-
             InitializeComponent();
-            
-
             connection = new HubConnectionBuilder()
             .WithUrl(Constants.signalrHub)
             .Build();
@@ -33,15 +31,15 @@ namespace VideoPlayer
 
             connection.On<string, string>("switchChannel", (channel1, channel2) =>
             {
-                stream1.Source = channel1;
-                stream2.Source = channel2;
+                stream1.URL = channel1;
+                stream2.URL = channel2;
             });
 
             try
             {
                 StartSignalR().Wait(60000);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -53,12 +51,15 @@ namespace VideoPlayer
             await connection.InvokeAsync("SetClient", "Xamarin");
         }
 
-        private async void Button_Clicked_Windows(object sender, EventArgs e)
+
+
+
+        private async void button1_Click(object sender, EventArgs e)
         {
-            await connection.InvokeAsync("SwitchChannelWindows");
+            await connection.InvokeAsync("SwitchChannelXamarin");
         }
 
-        private async void Button_Clicked_Web(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             await connection.InvokeAsync("SwitchChannelWeb");
         }
