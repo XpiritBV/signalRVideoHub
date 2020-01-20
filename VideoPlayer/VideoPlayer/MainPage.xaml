@@ -11,10 +11,8 @@
         <!-- Place new controls here -->
         <Button Text="Switch on Web" Clicked="Button_Clicked_Web"/>
         <Button Text="Switch on Windows App" Clicked="Button_Clicked_Windows"/>
-    <StackLayout Orientation="Horizontal">
-            <o:VideoPlayer x:Name="stream1" AutoPlay="True" Repeat="True" Source="http://vjs.zencdn.net/v/oceans.mp4" />
-            <o:VideoPlayer x:Name="stream2" AutoPlay="True" Repeat="True"  Source="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"/>
-        </StackLayout>
+        <o:VideoPlayer x:Name="stream1" AutoPlay="True" Repeat="True" Source="http://vjs.zencdn.net/v/oceans.mp4" />
+        <o:VideoPlayer x:Name="stream2" AutoPlay="True" Repeat="True"  Source="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"/>
     </StackLayout>
 
 </ContentPage>

@@ -51,7 +51,7 @@ namespace VideoPlayer.hub.Hubs
             var video2 = videos.ElementAt(rand.Next(videos.Count()));
 
             await Clients.Groups(client.ToUpperInvariant())
-                .SendAsync("switchChannel",  video1.AbsoluteUri, video2.AbsoluteUri );
+                .SendAsync("switchChannel", video1.AbsoluteUri, video2.AbsoluteUri);
         }
     }
 }

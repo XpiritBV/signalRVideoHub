@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -17,13 +14,11 @@ namespace VideoPlayer
         HubConnection connection;
         public MainPage()
         {
-
-            InitializeComponent();
-            
+            InitializeComponent();            
 
             connection = new HubConnectionBuilder()
-            .WithUrl(Constants.signalrHub)
-            .Build();
+                .WithUrl(Constants.signalrHub)
+                .Build();
 
             connection.Closed += async (error) =>
             {
@@ -37,20 +32,19 @@ namespace VideoPlayer
                 stream2.Source = channel2;
             });
 
-            try
+            StartSignalR().ContinueWith(t =>
             {
-                StartSignalR();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                if (t.IsFaulted)
+                {
+                    DisplayAlert("Error!", t.Exception.Message, "OK");
+                }
+            });
         }
 
-        private void StartSignalR()
+        private async Task StartSignalR()
         {
-             connection.StartAsync().Wait(5000);
-             connection.InvokeAsync("SetClient", "Xamarin").Wait(5000);
+             await connection.StartAsync();
+             await connection.InvokeAsync("SetClient", "Xamarin");
         }
 
         private async void Button_Clicked_Windows(object sender, EventArgs e)
