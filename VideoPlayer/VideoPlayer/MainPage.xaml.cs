@@ -28,10 +28,10 @@ namespace VideoPlayer
             connection.Closed += async (error) =>
             {
                 await Task.Delay(new Random().Next(0, 5) * 1000);
-                await StartSignalR();
+                StartSignalR();
             };
 
-            connection.On<string, string>("switchChannelXamarin", (channel1, channel2) =>
+            connection.On<string, string>("switchChannel", (channel1, channel2) =>
             {
                 stream1.Source = channel1;
                 stream2.Source = channel2;
@@ -39,7 +39,7 @@ namespace VideoPlayer
 
             try
             {
-                StartSignalR().Wait(60000);
+                StartSignalR();
             }
             catch(Exception e)
             {
@@ -47,10 +47,10 @@ namespace VideoPlayer
             }
         }
 
-        private async Task StartSignalR()
+        private void StartSignalR()
         {
-            await connection.StartAsync();
-            await connection.InvokeAsync("SetClient", "Xamarin");
+             connection.StartAsync().Wait(5000);
+             connection.InvokeAsync("SetClient", "Xamarin").Wait(5000);
         }
 
         private async void Button_Clicked_Windows(object sender, EventArgs e)

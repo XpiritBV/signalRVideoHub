@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,7 +36,7 @@ namespace VideoPlayer.Forms
 
             try
             {
-                StartSignalR().Wait(60000);
+                StartSignalR().Wait(6000);
             }
             catch (Exception e)
             {
@@ -48,7 +47,7 @@ namespace VideoPlayer.Forms
         private async Task StartSignalR()
         {
             await connection.StartAsync();
-            await connection.InvokeAsync("SetClient", "Xamarin");
+            await connection.InvokeAsync("SetClient", "Windows");
         }
 
 
@@ -62,6 +61,11 @@ namespace VideoPlayer.Forms
         private async void button2_Click(object sender, EventArgs e)
         {
             await connection.InvokeAsync("SwitchChannelWeb");
+        }
+
+        private void stream2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
