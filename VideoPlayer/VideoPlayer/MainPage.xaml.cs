@@ -14,7 +14,9 @@ namespace VideoPlayer
         HubConnection connection;
         public MainPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            btnWeb.IsEnabled = false;
+            btnWin.IsEnabled = false;
 
             connection = new HubConnectionBuilder()
                 .WithUrl(Constants.signalrHub)
@@ -22,8 +24,10 @@ namespace VideoPlayer
 
             connection.Closed += async (error) =>
             {
+                btnWeb.IsEnabled = false;
+                btnWin.IsEnabled = false;
                 await Task.Delay(new Random().Next(0, 5) * 1000);
-                StartSignalR();
+                await StartSignalR();
             };
 
             connection.On<string, string>("switchChannel", (channel1, channel2) =>
@@ -45,16 +49,24 @@ namespace VideoPlayer
         {
              await connection.StartAsync();
              await connection.InvokeAsync("SetClient", "Xamarin");
+            btnWeb.IsEnabled = true;
+            btnWin.IsEnabled = true;
         }
 
         private async void Button_Clicked_Windows(object sender, EventArgs e)
         {
-            await connection.InvokeAsync("SwitchChannelWindows");
+            if (connection.State == HubConnectionState.Connected)
+            {
+                await connection.InvokeAsync("SwitchChannelWindows");
+            }
         }
 
         private async void Button_Clicked_Web(object sender, EventArgs e)
         {
-            await connection.InvokeAsync("SwitchChannelWeb");
+            if (connection.State == HubConnectionState.Connected)
+            {
+                await connection.InvokeAsync("SwitchChannelWeb");
+            }
         }
     }
 }
