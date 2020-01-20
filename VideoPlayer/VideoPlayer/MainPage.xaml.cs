@@ -15,7 +15,19 @@ namespace VideoPlayer
     {
         public MainPage()
         {
+
             InitializeComponent();
+            Constants.signalrHub
+        }
+
+        private void Button_Clicked_Windows(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button_Clicked_Web(object sender, EventArgs e)
+        {
+
         }
     }
 }
