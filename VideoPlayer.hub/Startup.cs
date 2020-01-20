@@ -33,8 +33,6 @@ namespace VideoPlayer.hub
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();

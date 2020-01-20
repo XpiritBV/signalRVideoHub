@@ -12,6 +12,12 @@ namespace VideoPlayer.hub.Hubs
 
         private readonly VideoStore videoStore;
 
+
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+
         public VideoHub(VideoStore videoStore)
         {
             this.videoStore = videoStore;
