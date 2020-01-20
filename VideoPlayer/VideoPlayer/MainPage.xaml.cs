@@ -31,7 +31,7 @@ namespace VideoPlayer
                 await StartSignalR();
             };
 
-            connection.On<string, string>("SwitchChannelXamarin", (channel1, channel2) =>
+            connection.On<string, string>("switchChannelXamarin", (channel1, channel2) =>
             {
                 stream1.Source = channel1;
                 stream2.Source = channel2;
