@@ -23,6 +23,7 @@ namespace VideoPlayer.hub
             services.AddControllers();
             services.AddSingleton<VideoStore>();
             services.AddSignalR();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +34,8 @@ namespace VideoPlayer.hub
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -41,6 +44,7 @@ namespace VideoPlayer.hub
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<VideoHub>("/videoHub");
+                endpoints.MapRazorPages();
             });
         }
     }

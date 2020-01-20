@@ -1,0 +1,86 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <video id="player1"
+               class="video-js"
+               controls
+               preload="auto"
+               width="640"
+               height="264"
+               poster=""
+               data-setup="{}">
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4" />
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
+        </video>
+
+        <video id="player2"
+               class="video-js"
+               controls
+               preload="auto"
+               width="640"
+               height="264"
+               poster=""
+               data-setup="{}">
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4" />
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
+        </video>
+
+        <button onclick="javascript:switchOnXamarin()">Switch on Xamarin</button>
+        <button onclick="javascript:switchOnWindows()">Switch on Windows</button>
+    </div>
+
+@section Scripts {
+<script language="javascript">Text
+    const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/videoHub")
+    .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    const options = {};
+
+    const player1 = videojs('player1', options, function onPlayerReady() {
+          videojs.log('Your player 1 is ready!');
+    });
+
+    const player2 = videojs('player2', options, function onPlayerReady() {
+          videojs.log('Your player 2 is ready!');
+    });
+
+    connection.on("switchChannel", (channel1, channel2) => {
+        console.log(channel1);
+        player1.src({ type: 'video/mp4', src: channel1 });
+        player1.play();
+
+        console.log(channel2);
+        player2.src({ type: 'video/mp4', src: channel2 });
+        player2.play();
+    });
+
+    connection.start().then(function () {
+        console.log("connected");
+        connection.invoke("setClient", "Web").catch(err => console.error(err.toString()));
+    });
+
+    function switchOnXamarin() {
+        connection.invoke("switchChannelXamarin").catch(err => console.err(err.toString()));
+    }
+
+    function switchOnWindows() {
+        connection.invoke("switchChannelWindows").catch(err => console.err(err.toString()));
+    }
+
+</script>
+}
