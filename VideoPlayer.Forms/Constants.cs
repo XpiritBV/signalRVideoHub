@@ -6,6 +6,6 @@ namespace VideoPlayer
 {
     static class Constants
     {
-        public static readonly string signalrHub = "http://localhost:61764/videoHub";
+        public static readonly string signalrHub = "https://videoplayerhub20200120083504.azurewebsites.net/videoHub";
     }
 }

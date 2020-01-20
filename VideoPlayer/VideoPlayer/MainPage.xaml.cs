@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Octane.Xamarin.Forms.VideoPlayer;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -28,8 +29,8 @@ namespace VideoPlayer
 
             connection.On<string, string>("switchChannel", (channel1, channel2) =>
             {
-                stream1.Source = channel1;
-                stream2.Source = channel2;
+                stream1.Source = VideoSource.FromUri(channel1);
+                stream2.Source = VideoSource.FromUri(channel2);
             });
 
             StartSignalR().ContinueWith(t =>
