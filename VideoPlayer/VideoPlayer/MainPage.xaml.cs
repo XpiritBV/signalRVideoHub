@@ -3,6 +3,7 @@ using Octane.Xamarin.Forms.VideoPlayer;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using VideoHubClient;
 using Xamarin.Forms;
 
 namespace VideoPlayer
@@ -12,29 +13,19 @@ namespace VideoPlayer
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        HubConnection connection;
+        HubClient client;
+
         public MainPage()
         {
             InitializeComponent();
             btnWeb.IsEnabled = false;
             btnWin.IsEnabled = false;
 
-            connection = new HubConnectionBuilder()
-                .WithUrl(Constants.signalrHub)
-                .Build();
-
-            connection.Closed += async (error) =>
-            {
-                btnWeb.IsEnabled = false;
-                btnWin.IsEnabled = false;
-                await Task.Delay(new Random().Next(0, 5) * 1000);
-                await StartSignalR();
-            };
-
-            connection.On<string, string>("switchChannel", (channel1, channel2) =>
+            client = new HubClient("Xamarin", (channel1, channel2) =>
             {
                 stream1.Source = VideoSource.FromUri(channel1);
                 stream2.Source = VideoSource.FromUri(channel2);
+                return Task.CompletedTask;
             });
 
             StartSignalR().ContinueWith(t =>
@@ -48,26 +39,19 @@ namespace VideoPlayer
 
         private async Task StartSignalR()
         {
-             await connection.StartAsync();
-             await connection.InvokeAsync("SetClient", "Xamarin");
+            await client.Start();
             btnWeb.IsEnabled = true;
             btnWin.IsEnabled = true;
         }
 
         private async void Button_Clicked_Windows(object sender, EventArgs e)
         {
-            if (connection.State == HubConnectionState.Connected)
-            {
-                await connection.InvokeAsync("SwitchChannelWindows");
-            }
+            await client.SwitchWindows();
         }
 
         private async void Button_Clicked_Web(object sender, EventArgs e)
         {
-            if (connection.State == HubConnectionState.Connected)
-            {
-                await connection.InvokeAsync("SwitchChannelWeb");
-            }
+            await client.SwitchWeb();
         }
     }
 }

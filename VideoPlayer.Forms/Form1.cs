@@ -1,37 +1,23 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VideoHubClient;
 
 namespace VideoPlayer.Forms
 {
     public partial class Form1 : Form
     {
+        HubClient client;
 
-        HubConnection connection;
         public Form1()
         {
             InitializeComponent();
-            connection = new HubConnectionBuilder()
-            .WithUrl(Constants.signalrHub)
-            .Build();
 
-            connection.Closed += async (error) =>
-            {
-                await Task.Delay(new Random().Next(0, 5) * 1000);
-                await StartSignalR();
-            };
-
-            connection.On<string, string>("switchChannel", (channel1, channel2) =>
+            client = new HubClient("Windows", (channel1, channel2) =>
             {
                 stream1.URL = channel1;
                 stream2.URL = channel2;
+                return Task.CompletedTask;
             });
 
             try
@@ -46,23 +32,17 @@ namespace VideoPlayer.Forms
 
         private async Task StartSignalR()
         {
-            await connection.StartAsync();
-            await connection.InvokeAsync("SetClient", "Windows");
+            await client.Start();
         }
-
-
-
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            await connection.InvokeAsync("SwitchChannelXamarin");
+            await client.SwitchXamarin();
         }
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            await connection.InvokeAsync("SwitchChannelWeb");
+            await client.SwitchWeb();
         }
-
-
     }
 }

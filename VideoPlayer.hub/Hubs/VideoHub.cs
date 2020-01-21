@@ -24,7 +24,8 @@ namespace VideoPlayer.hub.Hubs
 
         public Task SetClient(string client)
         {
-            return Groups.AddToGroupAsync(Context.ConnectionId, client.ToUpperInvariant());
+            return Groups
+                .AddToGroupAsync(Context.ConnectionId, client.ToUpperInvariant());
         }
 
         public Task SwitchChannelXamarin()
